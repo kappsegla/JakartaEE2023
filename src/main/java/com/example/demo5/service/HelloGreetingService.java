@@ -1,12 +1,11 @@
-package com.example.demo5;
+package com.example.demo5.service;
 
-
+import com.example.demo5.interceptor.Logging;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
-import jakarta.ws.rs.Produces;
 
 @ApplicationScoped
-public class HelloGreetingService implements GreetingService{
+@Logging
+public class HelloGreetingService implements GreetingService {
 
     @Override
     public String greeting() {
