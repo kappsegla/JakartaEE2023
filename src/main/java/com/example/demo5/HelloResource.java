@@ -3,6 +3,7 @@ package com.example.demo5;
 import com.example.demo5.interceptor.Logging;
 import com.example.demo5.service.GreetingService;
 import jakarta.inject.Inject;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -21,8 +22,7 @@ public class HelloResource {
 
     private static final Logger logger = LoggerFactory.getLogger(HelloResource.class);
 
-    public HelloResource() {
-    }
+    public HelloResource(){}
 
     @Inject
     public HelloResource(GreetingService greetingService) {
@@ -32,7 +32,6 @@ public class HelloResource {
     @GET
     @Produces("text/plain")
     @Path("/hello")
-    //@Log
     public String hello() {
         return greetingService.greeting();
     }
@@ -48,7 +47,6 @@ public class HelloResource {
     @Path("/query")
     @Produces(MediaType.TEXT_PLAIN)
     public String query(@QueryParam("input") String input) {
-
         return input;
     }
 
@@ -78,4 +76,11 @@ public class HelloResource {
         return Response.status(200).entity("Test").header("MyHeader", "Testing").build();
     }
 
+    @POST
+    @Path("/persons")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void uploadPerson(Person person){
+        throw new MyException("Invalid id");
+//        logger.info("Person uploaded:" + person);
+    }
 }
